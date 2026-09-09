@@ -1,12 +1,13 @@
 import { getWeatherInfo } from "./weatherData.js";
+import { showWeatherInfo } from "./DomStuff.js";
 
 const weatherForm = document.querySelector("#weather-form");
 const elements = weatherForm.elements;
 const btn = document.querySelector("#weather-form button");
 const location = elements["location"];
+const toggleBtn = document.querySelector("#toggleUnit");
 
-location.addEventListener("input", isValidlocation);
-location.addEventListener("focusout", isValidlocation);
+toggleBtn.addEventListener("click", toggleUnitGroup);
 btn.addEventListener("click", formSubmitHandler);
 
 function isValidlocation() {
@@ -22,13 +23,32 @@ function isValidlocation() {
 }
 function formSubmitHandler(e) {
   e.preventDefault();
+  checkAndQuery();
+}
+
+function checkAndQuery() {
   if (!isValidlocation()) {
     weatherForm.reportValidity();
     return;
   }
   const locationValue = location.value;
   const locationarr = locationValue.split(",");
-  getWeatherInfo(locationarr[0], locationarr[1]).then((weatherInfo) => {
-    console.log(weatherInfo);
-  });
+  const unitGroup = toggleBtn.dataset.unitGroup;
+  getWeatherInfo(locationarr[0], locationarr[1], unitGroup).then(
+    (weatherInfo) => {
+      console.log(weatherInfo);
+      showWeatherInfo(weatherInfo);
+    },
+  );
+}
+
+function toggleUnitGroup() {
+  if (toggleBtn.dataset.unitGroup === "us") {
+    toggleBtn.dataset.unitGroup = "metric";
+    toggleBtn.value = "摄氏度";
+  } else {
+    toggleBtn.dataset.unitGroup = "us";
+    toggleBtn.value = "华氏度";
+  }
+  checkAndQuery();
 }

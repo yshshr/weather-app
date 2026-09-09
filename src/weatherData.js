@@ -29,13 +29,17 @@ class WeatherInfo {
   }
 }
 
-export async function getWeatherInfo(latitude = 31.3, longitude = 120.6) {
+export async function getWeatherInfo(
+  latitude = 31.3,
+  longitude = 120.6,
+  unitGroup = "metric",
+) {
   let location = {
     latitude: latitude,
     longitude: longitude,
   };
   let weatherInfo;
-  const resJson = await requestWeatherApi(location);
+  const resJson = await requestWeatherApi(location, unitGroup);
   const days = [];
   for (const dailyInfo of resJson.days) {
     const dailyWeather = new DailyWeather(

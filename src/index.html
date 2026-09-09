@@ -9,7 +9,26 @@
     <form id="weather-form">
       <label for="location">位置</label>
       <input type="text" id="location" name="location" required />
+      <label for="toggleUnit">切换单位</label>
+      <input
+        type="button"
+        id="toggleUnit"
+        name="toggleUnit"
+        value="摄氏度"
+        data-unit-group="metric"
+      />
       <button>查询天气</button>
     </form>
+    <table id="weather-data">
+      <tr>
+        <td></td>
+        <td>天气图标</td>
+        <td>天气状况</td>
+        <td>最低温度</td>
+        <td>最高温度</td>
+        <td>湿度</td>
+        <td>描述</td>
+      </tr>
+    </table>
   </body>
 </html>

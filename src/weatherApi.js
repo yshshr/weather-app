@@ -1,4 +1,4 @@
-export async function requestWeatherApi(locationInfo) {
+export async function requestWeatherApi(locationInfo, unitGroup) {
   let location;
   if (locationInfo.latitude && locationInfo.longitude) {
     location = locationInfo.latitude + "," + locationInfo.longitude;
@@ -7,7 +7,7 @@ export async function requestWeatherApi(locationInfo) {
   }
   try {
     const response = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&include=days&key=UBSC6YRVQFY7H598UF2CXCNJV&contentType=json&lang=zh`,
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=${unitGroup}&include=days&key=UBSC6YRVQFY7H598UF2CXCNJV&contentType=json&lang=zh`,
     );
     if (!response.ok) {
       throw new Error("weather api return error!");
