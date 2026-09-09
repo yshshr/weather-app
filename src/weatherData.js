@@ -29,10 +29,10 @@ class WeatherInfo {
   }
 }
 
-export async function getWeatherInfo() {
+export async function getWeatherInfo(latitude = 31.3, longitude = 120.6) {
   let location = {
-    latitude: 31.3,
-    longitude: 120.6,
+    latitude: latitude,
+    longitude: longitude,
   };
   let weatherInfo;
   const resJson = await requestWeatherApi(location);
