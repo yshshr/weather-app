@@ -12,7 +12,7 @@ export default {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
-  ],  
+  ],
   module: {
     rules: [
       {
@@ -20,14 +20,14 @@ export default {
         use: ["style-loader", "css-loader"],
       },
       // html、javascript中使用图片
-      // {
-      //   test: /\.html$/i,
-      //   use: ["html-loader"],
-      // },  
-      // {
-      //   test: /\.(png|svg|jpg|jpeg|gif)$/i,
-      //   type: "asset/resource",
-      // },          
+      {
+        test: /\.html$/i,
+        use: ["html-loader"],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+      },
     ],
-  },  
+  },
 };
