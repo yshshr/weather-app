@@ -1,5 +1,6 @@
 import { format, isEqual, parse } from "date-fns";
 import { zhCN } from "date-fns/locale";
+import loadingGif from "../components/my-component/images/loading.gif";
 
 export function showWeatherInfo(weatherInfo) {
   const weatherTable = document.querySelector("#weather-data");
@@ -89,4 +90,21 @@ export function changeBgImage(weatherIcon) {
     const body = document.querySelector("body");
     body.style.backgroundImage = `url(${imageUrl})`;
   });
+}
+
+export function appendLoadingComponent(selector) {
+  const container = document.querySelector(selector);
+  const img = document.createElement("img");
+  img.src = loadingGif;
+  img.alt = "加载中...";
+  img.width = "150";
+  img.height = "150";
+  img.className = "loading-img";
+  container.appendChild(img);
+}
+
+export function removeLoading(selector) {
+  const container = document.querySelector(selector);
+  const loadingImg = document.querySelector(".loading-img");
+  container.removeChild(loadingImg);
 }

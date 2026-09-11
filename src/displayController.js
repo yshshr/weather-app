@@ -4,6 +4,10 @@ import {
   showTodayWeatherGif,
   changeBgImage,
 } from "./DomStuff.js";
+import {
+  loadingComponent,
+  removeLoadingComponent,
+} from "./loadingWeatherInfo.js";
 
 const weatherForm = document.querySelector("#weather-form");
 const elements = weatherForm.elements;
@@ -38,8 +42,10 @@ function checkAndQuery() {
   const locationValue = location.value;
   const locationarr = locationValue.split(",");
   const unitGroup = toggleBtn.dataset.unitGroup;
-  getWeatherInfo(locationarr[0], locationarr[1], unitGroup).then(
-    (weatherInfo) => {
+  // 请求api前加载loading组件
+  loadingComponent();
+  getWeatherInfo(locationarr[0], locationarr[1], unitGroup)
+    .then((weatherInfo) => {
       console.log(weatherInfo);
       const todayConditions = weatherInfo.days[0].conditions;
       const todayIcon = weatherInfo.days[0].icon;
@@ -48,8 +54,10 @@ function checkAndQuery() {
       getWeatherGifUrl(todayConditions).then((gifurl) => {
         showTodayWeatherGif(gifurl);
       });
-    },
-  );
+    })
+    .finally(() => {
+      removeLoadingComponent();
+    });
 }
 
 function toggleUnitGroup() {
