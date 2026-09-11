@@ -1,6 +1,9 @@
+import { format, isEqual, parse } from "date-fns";
+import { zhCN } from "date-fns/locale";
+
 export function showWeatherInfo(weatherInfo) {
   const weatherTable = document.querySelector("#weather-data");
-  const headtr = weatherTable.firstChild;
+  const headtr = weatherTable.firstElementChild;
   weatherTable.innerHTML = "";
   weatherTable.appendChild(headtr);
   for (const dailyWeather of weatherInfo.days) {
@@ -21,7 +24,14 @@ const weatherFields = [
 function createTableRow(dailyData) {
   const tr = document.createElement("tr");
   const th = document.createElement("th");
-  th.textContent = dailyData.datetime;
+  const datetime = dailyData.datetime;
+  const weatherDate = parse(datetime, "yyyy-MM-dd", new Date());
+  if (isEqual(datetime, format(new Date(), "yyyy-MM-dd"))) {
+    th.textContent = "今天";
+  } else {
+    th.textContent = format(weatherDate, "yyyy-MM-dd eeee", { locale: zhCN });
+  }
+
   tr.appendChild(th);
   for (const field of weatherFields) {
     const td = document.createElement("td");
@@ -44,4 +54,12 @@ function createTableRow(dailyData) {
     tr.appendChild(td);
   }
   return tr;
+}
+
+export function showTodayWeatherGif(gifurl) {
+  const todayConditon = document.querySelector("#today-conditon");
+  const img = document.createElement("img");
+  img.src = gifurl;
+  img.alt = "天气动图";
+  todayConditon.appendChild(img);
 }

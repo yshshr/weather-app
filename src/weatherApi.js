@@ -18,3 +18,18 @@ export async function requestWeatherApi(locationInfo, unitGroup) {
     console.error(error);
   }
 }
+
+export async function requestWeatherGif(conditions) {
+  try {
+    const response = await fetch(
+      `https://api.giphy.com/v1/gifs/translate?api_key=Sg1DiwIQbDYNJvYzQghheiqTEYNaCxXf&s=${conditions}&rating=g`,
+    );
+    if (!response.ok) {
+      throw new Error("giphy api return error!");
+    }
+    const resJson = await response.json();
+    return resJson;
+  } catch (error) {
+    console.error(error);
+  }
+}

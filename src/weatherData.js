@@ -1,4 +1,4 @@
-import { requestWeatherApi } from "./weatherApi.js";
+import { requestWeatherApi, requestWeatherGif } from "./weatherApi.js";
 
 class DailyWeather {
   constructor(
@@ -56,4 +56,14 @@ export async function getWeatherInfo(
   }
   weatherInfo = new WeatherInfo(resJson.address, days);
   return weatherInfo;
+}
+
+export async function getWeatherGifUrl(conditions) {
+  const weatherGifInfo = await requestWeatherGif(conditions);
+  if (weatherGifInfo) {
+    const gifUrl = weatherGifInfo.data.images.original.url;
+    return gifUrl;
+  } else {
+    return "#";
+  }
 }
