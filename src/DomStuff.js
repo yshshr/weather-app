@@ -61,5 +61,32 @@ export function showTodayWeatherGif(gifurl) {
   const img = document.createElement("img");
   img.src = gifurl;
   img.alt = "天气动图";
+  img.width = "280";
+  img.height = "280";
+  todayConditon.innerHTML = "";
   todayConditon.appendChild(img);
+}
+
+export function changeBgImage(weatherIcon) {
+  let bgImage;
+  switch (weatherIcon) {
+    case "rain":
+      bgImage = "rainy.jpg";
+      break;
+    case "partly-cloudy-day":
+      bgImage = "cloudy.jpg";
+      break;
+    case "clear-day":
+      bgImage = "sunny.jpg";
+      break;
+    default:
+      bgImage = "sunny.jpg";
+      break;
+  }
+
+  import(`../components/my-component/images/${bgImage}`).then((image) => {
+    const { default: imageUrl } = image;
+    const body = document.querySelector("body");
+    body.style.backgroundImage = `url(${imageUrl})`;
+  });
 }

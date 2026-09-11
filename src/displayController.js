@@ -1,5 +1,9 @@
 import { getWeatherInfo, getWeatherGifUrl } from "./weatherData.js";
-import { showWeatherInfo, showTodayWeatherGif } from "./DomStuff.js";
+import {
+  showWeatherInfo,
+  showTodayWeatherGif,
+  changeBgImage,
+} from "./DomStuff.js";
 
 const weatherForm = document.querySelector("#weather-form");
 const elements = weatherForm.elements;
@@ -38,7 +42,9 @@ function checkAndQuery() {
     (weatherInfo) => {
       console.log(weatherInfo);
       const todayConditions = weatherInfo.days[0].conditions;
+      const todayIcon = weatherInfo.days[0].icon;
       showWeatherInfo(weatherInfo);
+      changeBgImage(todayIcon);
       getWeatherGifUrl(todayConditions).then((gifurl) => {
         showTodayWeatherGif(gifurl);
       });
