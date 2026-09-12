@@ -80,6 +80,9 @@ export function changeBgImage(weatherIcon) {
     case "clear-day":
       bgImage = "sunny.jpg";
       break;
+    case "wind":
+      bgImage = "windy.jpg";
+      break;
     default:
       bgImage = "sunny.jpg";
       break;

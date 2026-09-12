@@ -46,7 +46,6 @@ function checkAndQuery() {
   loadingComponent();
   getWeatherInfo(locationarr[0], locationarr[1], unitGroup)
     .then((weatherInfo) => {
-      console.log(weatherInfo);
       const todayConditions = weatherInfo.days[0].conditions;
       const todayIcon = weatherInfo.days[0].icon;
       showWeatherInfo(weatherInfo);
